@@ -26,7 +26,7 @@ function App() {
   
   // This useEffect hook fetches data from an API when the function runs.
   useEffect(() => {
-    axios.get(`https://www.jsonkeeper.com/b/MDXW`)
+    axios.get(`https://raw.githubusercontent.com/bootcamp-students/random-restaurant-json/main/foodList.json`)
       .then(response => {
         // It updates the foods state variable with the fetched data.
         setFoods(response.data);
