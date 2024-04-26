@@ -38,9 +38,9 @@ function App() {
       });
   }, []);
 
-  // This line filters out only Italian cuisine from the foods state variable.
+  //filters out only Italian cuisine from the foods state variable.
   const italianFoods = foods.filter(food => food.cuisine_type === "Italian");
-  // This line filters out only appetizers from the foods state variable.
+  //filters out only appetizers from the foods state variable.
   const apps = foods.filter(food => food.category === "Appetizer");
 
   // Menu page styling
