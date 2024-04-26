@@ -4,7 +4,7 @@ import About from './About'
 function Header() {
   return (
     
-    <div className=" p-md-5 container border border-dark" id="maincontainer">
+    <div className=" p-md-5 mt-2 container border border-dark" id="maincontainer">
       <div className="text-center">
         <img src={logo} id="logo"></img>
       </div> 
