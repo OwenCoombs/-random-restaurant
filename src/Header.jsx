@@ -29,6 +29,11 @@ function Header() {
             <h5>About</h5>
           </Link>
         </div>
+        <div className="col">
+          <Link style={{textDecoration: 'none'}} to={"/About"}>
+            <h5>Order</h5>
+          </Link>
+        </div>
       </div>
     </div>
   )
