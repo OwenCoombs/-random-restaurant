@@ -30,7 +30,7 @@ function Header() {
           </Link>
         </div>
         <div className="col">
-          <Link style={{textDecoration: 'none'}} to={"/About"}>
+          <Link style={{textDecoration: 'none'}} to={"/Order"}>
             <h5>Order</h5>
           </Link>
         </div>

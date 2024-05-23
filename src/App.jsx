@@ -9,11 +9,11 @@ function Food({ food }) {
     
     <div>
       {/* This line displays the title of the food item. */}
-      <h2 id="name1">{food.title}</h2>
+      <h2 id="name1">{food.name}</h2>
       {/* This line displays the price of the food item. */}
-      <p>{food.price}</p> 
+      <p>${food.price}</p> 
       {/* This line displays the spice level of the food item. */}
-      <p>Spice Level: {food.spicy_level}</p>
+      <p>Spice Level: {food.spice_level}</p>
     </div>
   );
 }
@@ -26,12 +26,11 @@ function App() {
   
   // This useEffect hook fetches data from an API when the function runs.
   useEffect(() => {
-    axios.get(`https://raw.githubusercontent.com/bootcamp-students/random-restaurant-json/main/foodList.json`)
+    axios.get(`http://127.0.0.1:8000/menuitems/`)
       .then(response => {
         // It updates the foods state variable with the fetched data.
         setFoods(response.data);
-        
-        
+        console.log(response.data)        
       })
       .catch(error => {
         console.log('error', error);
@@ -39,10 +38,11 @@ function App() {
   }, []);
 
   //filters out only Italian cuisine from the foods state variable.
-  const italianFoods = foods.filter(food => food.cuisine_type === "Italian");
+  // const italianFoods = foods.filter(food => food.cuisine_type === "Italian");
   //filters out only appetizers from the foods state variable.
-  const apps = foods.filter(food => food.category === "Appetizer");
-
+  // const apps = foods.filter(food => food.category === "Appetizer");
+  const apps = foods.filter(food => food.category === "app")
+  const entree = foods.filter(food => food.category == "entree")
   // Menu page styling
   return (
     <div>
@@ -61,14 +61,17 @@ function App() {
        
         <hr></hr>
         <div className="mt-5">
-          {/* Section for displaying appetizers. */}
-          <h2 id="pastas">Appetizers</h2>
-          {/* Mapping through apps array and displaying Food component for each item. */}
+          <h2 id="pastas">Apps</h2>
           {apps.map(food => <Food key={food.id} food={food} />)}
-          {/* Section for displaying entrees. */}
           <h2 id="pastas">Entrees</h2>
+          {entree.map(food => <Food  key={food.id} food={food} />)}
+          {/* Section for displaying appetizers. */}
+          {/* <h2 id="pastas">Appetizers</h2> */}
+          {/* Mapping through apps array and displaying Food component for each item. */}
+          {/* {apps.map(food => <Food key={food.id.category.app} food={food} />)} */}
+          {/* Section for displaying entrees. */}
           {/* Mapping through italianFoods array and displaying Food component for each item. */}
-          {italianFoods.map(food => <Food key={food.id} food={food} />)}
+          {/* {italianFoods.map(food => <Food key={food.id} food={food} />)} */}
         </div>
       </div>
     </div>
