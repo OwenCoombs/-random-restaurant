@@ -7,27 +7,61 @@ import { useEffect, useState } from 'react';
 function FoodOption({ food }) {
   return (
     <option value={food.id}>{food.name} - ${food.price} - Spice Level: {food.spice_level}</option>
+            //  Displays the food's name, price, and spice level in the dropdown menu 
   );
 }
 
 
+const NewOrder = ({ ApiCall }) => {
+  const [name, setName] = useState('')
+  const createNewOrder = () => {
+    axios.post('http://127.0.0.1:8000/orders/', {
+      name: name
+    })
+
+      .then(response =>{
+        console.log('RESPONSE: ', response)
+        if ((response.status >= 200) && (response.status <= 202)){
+          setName('')
+          ApiCall()
+        }
+      })
+      .catch(error => console.log('ERROR: ', error))
+  }
+
+  return (
+    <div>
+      <h2>Create New Order</h2>
+      <input onChange={e => setName(e.target.value)}
+      placeholder='Enter Name'
+      value={name} />
+      <button onClick={() => createNewOrder() }>
+        Create Order
+      </button>
+    </div>
+  )
+}
 
 
 
 // This function represents the entire menu page.
 function ApiCall({ setFoods }) {
-  useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/menuitems/`)
-      .then(response => {
-        setFoods(response.data);
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.log('error', error);
-      });
-  }, [setFoods]);
+  const [neworder, setNewOrder] = useState([])
 
-  return null;
+  useEffect(() => {
+    ApiCall()
+  }, [])
+
+  const ApiCall = () => {
+    
+    axios.get('http://127.0.0.1:8000/menuitems/')
+      .then(response => {
+        setNewOrder(response.data)
+
+      })
+      .catch(error => console.log('ERROR', error))
+    
+  }
 }
 
 function ContactPage2() {
@@ -38,7 +72,8 @@ function ContactPage2() {
 
   return (
     <div className="container border border-dark d-flex justify-content-center" id="maincontainer">
-      <ApiCall setFoods={setFoods} />
+      <ApiCall setFoods={setFoods} /> 
+      {/* calling api componet to fetch and set the foods */}
       
       <div className="text-center">
         <div>
@@ -73,10 +108,10 @@ function ContactPage2() {
               {entrees.map(food => <FoodOption key={food.id} food={food} />)}
             </Form.Control>
           </Form.Group>
-          <Button variant="dark" type="submit">
-            Place Order
-          </Button>
+          {/* <Button variant="dark" type="submit"> */}
+          {/* </Button> */}
         </Form>
+        <NewOrder />
       </div>
     </div>
   );
