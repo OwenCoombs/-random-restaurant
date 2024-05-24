@@ -10,6 +10,10 @@ function FoodOption({ food }) {
   );
 }
 
+
+
+
+
 // This function represents the entire menu page.
 function ApiCall({ setFoods }) {
   useEffect(() => {
